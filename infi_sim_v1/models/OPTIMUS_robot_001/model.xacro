@@ -1,4 +1,5 @@
 <robot name="OPTIMUS_robot_001" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
     <xacro:property name="M_PI" value="3.1415926535897931"/>
     <xacro:property name="deg_to_rad" value="0.01745329251994329577"/>
 
@@ -8,13 +9,13 @@
     <xacro:property name="MANIPULATOR_MOUNT_Z" value="0.0"/>
 
     <xacro:include filename="manipulator_h.xacro"/>
-    <xacro:include filename="sensors/xtion_pro_live.urdf.xacro"/>
-    <xacro:xtion_pro_live name="rgbd_camera" parent="end">
-        <origin xyz="0 0 0.1" rpy="0 0 0"/>
-        <origin xyz="0 0 0.1" rpy="${-90.0 * deg_to_rad} 0 ${-90.0 * deg_to_rad}"/>
+    <!--xacro:include filename="sensors/xtion_pro_live.urdf.xacro"/-->
+    <!--xacro:xtion_pro_live name="rgbd_camera" parent="end">
+        <origin xyz="0 0 0.1" rpy="0 0 0"/-->
+        <!--origin xyz="0 0 0.1" rpy="${-90.0 * deg_to_rad} 0 ${-90.0 * deg_to_rad}"/-->
         <!--<origin xyz="0 0 0.1" rpy="0 ${75.0 * deg_to_rad} 0"/>-->
         <!--<optical_origin xyz="0 0 0.1" rpy="${-90.0 * deg_to_rad} 0 ${-90.0 * deg_to_rad}"/>-->
-    </xacro:xtion_pro_live>
+    <!--/xacro:xtion_pro_live-->
 
     <xacro:property name="INTEL_D435_MOUNT_LINK" value="camera_mount_dummy_link"/>
     <xacro:property name="INTEL_D435_MOUNT_X" value="0.1"/>
@@ -232,6 +233,7 @@
 
     <!-- Elevator -->
     <joint name="j_elev" type="prismatic">
+    <!--joint name="j_elev" type="fixed"-->
         <parent link="base_link"/>
         <child link="elevator"/>
         <origin xyz="0.4065 0 0.595" rpy="0 0 0"/>
@@ -264,7 +266,7 @@
     </link>
 
     <!-- Sensors -->
-    <joint name="j_ray_sensor_back" type="fixed">
+    <!--joint name="j_ray_sensor_back" type="fixed">
         <parent link="base_link"/>
         <child link="ray_sensor_back"/>
         <origin xyz="0.0 0 -0.05" rpy="0 0 3.1415926"/>
@@ -311,7 +313,7 @@
                 <hokuyoMinIntensity>101</hokuyoMinIntensity>
             </plugin>
         </sensor>
-    </gazebo>
+    </gazebo-->
 
     <joint name="j_ray_sensor_front" type="fixed">
         <parent link="base_link"/>
@@ -356,7 +358,7 @@
                 <updateRate>50</updateRate>
                 <topicName>/scan</topicName>
                 <frameName>ray_sensor_front</frameName>
-                <ns>/optimus</ns>
+                <!--ns>/optimus</ns-->
                 <hokuyoMinIntensity>101</hokuyoMinIntensity>
             </plugin>
         </sensor>
@@ -465,7 +467,7 @@
             </imu>
         </plugin>
         <plugin name="optimus_diff_drive" filename="libgazebo_ros_diff_drive.so">
-            <commandTopic>/optimus/cmd_vel</commandTopic>
+            <commandTopic>cmd_vel</commandTopic>
             <odometryTopic>odom</odometryTopic>
             <odometryFrame>odom</odometryFrame>
             <!--            <odometrySource>world</odometrySource>-->
@@ -484,12 +486,13 @@
             <wheelTorque>10</wheelTorque>
             <rosDebugLevel>na</rosDebugLevel>
         </plugin>
-        <plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
+
+        <!--plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
             <robotNamespace></robotNamespace>
             <jointName>j_elev, joint1, joint2, joint3, joint4, joint5, joint6</jointName>
             <updateRate>100.0</updateRate>
             <alwaysOn>true</alwaysOn>
-        </plugin>
+        </plugin-->
     </gazebo>
 
 </robot>

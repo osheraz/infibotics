@@ -1,0 +1,418 @@
+<robot name="OPTIMUS_robot_001" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:property name="deg_to_rad" value="0.01745329251994329577"/>
+    <!--    <xacro:xtion_pro_live name="rgbd_camera" parent="elevator">-->
+    <!--        <origin xyz="0.1 0 1" rpy="0 ${75.0 * deg_to_rad} 0"/>-->
+    <!--        <origin xyz="0 0 0" rpy="${-90.0 * deg_to_rad} 0 ${-90.0 * deg_to_rad}"/>-->
+    <!--    </xacro:xtion_pro_live>-->
+
+
+    <link name="base_footprint"/>
+    <joint name="base_footprint_joint" type="fixed">
+        <parent link="base_footprint"/>
+        <child link="base_link"/>
+        <origin xyz="0.00 0.00 0" rpy="0.0 0.0 0.0"/>
+    </joint>
+
+    <!-- Base Link -->
+    <link name="base_link">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/base_link_collision_101.stl" scale="1 1 1"/>
+            </geometry>
+        </collision><!--<contact_coefficients> </contact_coefficients>-->
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/base_link.STL" scale="1 1 1"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <inertial>
+            <origin xyz="0.3 0 0.2" rpy="0 0 0"/>
+            <mass value="80"/>
+            <inertia
+                    ixx="14.480" ixy="0" ixz="0.0"
+                    iyy="14.672" iyz="0.0"
+                    izz="3.480"/>
+            <!--         <inertia
+                             ixx="14.4873" ixy="-0.0006" ixz="-0.0377"
+                             iyy="3.5408" iyz="0.8225"
+                             izz="14.6034"/>-->
+        </inertial>
+    </link>
+    <gazebo reference="base_link">
+        <mu1>0.1</mu1>
+        <mu2>0.1</mu2>
+        <kp>500000.0</kp>
+        <kd>10.0</kd>
+        <minDepth>0.001</minDepth>
+        <maxVel>0.1</maxVel>
+        <fdir1>1 0 0</fdir1>
+        <material>Gazebo/FlatBlack</material>
+    </gazebo>
+
+
+    <!-- Wheels -->
+    <joint name="j_whFR" type="continuous">
+        <parent link="base_link"/>
+        <child link="whFR"/>
+        <origin xyz="0.4315 -0.185 0.0533" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <link name="whFR">
+        <collision>
+            <origin xyz="0 -0.0375 0" rpy="1.5707963267948966 0 0"/>
+            <geometry>
+                <cylinder radius="0.13" length="0.075"/>
+
+                <!--                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/wheel_front_left.STL" scale="1 1 1"/>-->
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 -1.5707963267948966"/>
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/wheel_front_left.STL" scale="1 1 1"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+
+        <inertial>
+            <origin xyz="0 0.0 0" rpy="0 0 0"/>
+            <mass value="1.5"/>
+            <inertia
+                    ixx="0.007688273" ixy="0.0" ixz="0.0"
+                    iyy="0.0140792" iyz="0.0"
+                    izz="0.007688273"/>
+        </inertial>
+    </link>
+
+    <joint name="j_whFL" type="continuous">
+        <parent link="base_link"/>
+        <child link="whFL"/>
+        <origin xyz="0.4315 0.185 0.0533" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <link name="whFL">
+        <collision>
+            <origin xyz="0 0.0375 0" rpy=" 1.5707963267948966 0 0"/>
+            <geometry>
+                <cylinder radius="0.13" length="0.075"/>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/wheel_front_left.STL" scale="1 1 1"/>
+                <!--                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/wheel_front_left.STL" scale="1 1 1"/>-->
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 1.5707963267948966"/>
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/wheel_front_left.STL" scale="1 1 1"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+
+        <inertial>
+            <origin xyz="0 0.0 0" rpy="0 0 0"/>
+            <mass value="1.5"/>
+            <inertia
+                    ixx="0.007688273" ixy="0.0" ixz="0.0"
+                    iyy="0.0140792" iyz="0.0"
+                    izz="0.007688273"/>
+        </inertial>
+    </link>
+
+    <joint name="j_whRL" type="fixed">
+        <parent link="base_link"/>
+        <child link="whRL"/>
+        <origin xyz="0.095 0.2075 -0.0173" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <link name="whRL">
+        <collision>
+            <origin xyz="0 0 0" rpy="1.5707963267948966 0 0"/> <!-- -1.5707963267948966  -->
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/wheel_back_left.STL" scale="1 1 1"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0" rpy="1.5707963267948966 0 0"/>
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/wheel_back_left.STL" scale="1 1 1"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+
+        <inertial>
+            <origin xyz="0 -0.0215 0" rpy="0 0 0"/>
+            <mass value="0.4"/>
+            <inertia
+                    ixx="0.0004538583" ixy="0.0" ixz="0.0"
+                    iyy="0.00078445" iyz="0.0"
+                    izz="0.0004538583"/>
+        </inertial>
+    </link>
+    <gazebo reference="whRL">
+        <mu1>0.0000001</mu1>
+        <mu2>0.0000001</mu2>
+        <kp>500000.0</kp>
+        <kd>10.0</kd>
+        <minDepth>0.001</minDepth>
+        <maxVel>0.1</maxVel>
+        <fdir1>1 0 0</fdir1>
+        <material>Gazebo/Orange</material>
+    </gazebo>
+
+    <joint name="j_whRR" type="fixed">
+        <parent link="base_link"/>
+        <child link="whRR"/>
+        <origin xyz="0.095 -0.2075 -0.0173" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <link name="whRR">
+        <collision>
+            <origin xyz="0 0 0" rpy="-1.5707963267948966 0 0"/>
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/wheel_back_left.STL" scale="1 1 1"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0" rpy="-1.5707963267948966 0 0"/>
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/wheel_back_left.STL" scale="1 1 1"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+
+        <inertial>
+            <origin xyz="0 0.0215 0" rpy="0 0 0"/>
+            <mass value="0.4"/>
+            <inertia
+                    ixx="0.0004538583" ixy="0.0" ixz="0.0"
+                    iyy="0.00078445" iyz="0.0"
+                    izz="0.0004538583"/>
+        </inertial>
+    </link>
+    <gazebo reference="whRR">
+        <mu1>0.0000001</mu1>
+        <mu2>0.0000001</mu2>
+        <kp>500000.0</kp>
+        <kd>10.0</kd>
+        <minDepth>0.001</minDepth>
+        <maxVel>0.1</maxVel>
+        <fdir1>1 0 0</fdir1>
+        <material>Gazebo/Orange</material>
+    </gazebo>
+
+
+    <!-- Elevator -->
+    <joint name="j_elev" type="fixed">
+        <parent link="base_link"/>
+        <child link="elevator"/>
+        <origin xyz="0.4065 0 0.595" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="30" velocity="1.0" lower="0" upper="0.7"/>
+
+    </joint>
+    <link name="elevator">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/> <!-- -1.5707963267948966  -->
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/elevator_robotic_arm.STL" scale="1 1 1"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/elevator_robotic_arm.STL" scale="1 1 1"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="1.5"/>
+            <inertia
+                    ixx="0.0302" ixy="0.0" ixz="0.0"
+                    iyy="0.0027" iyz="0"
+                    izz="0.0302"/>
+        </inertial>
+    </link>
+
+    <!-- Sensors -->
+    <joint name="j_ray_sensor_back" type="fixed">
+        <parent link="base_link"/>
+        <child link="ray_sensor_back"/>
+        <origin xyz="0.0 0 -0.05" rpy="0 0 3.1415926"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+    <link name="ray_sensor_back">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="0.0001"/>
+            <inertia
+                    ixx="1e-10" ixy="0.0" ixz="0.0"
+                    iyy="1e-10" iyz="0"
+                    izz="1e-10"/>
+        </inertial>
+    </link>
+    <gazebo reference="ray_sensor_back">
+        <sensor type="ray" name="ray_sensor_back">
+            <always_on>true</always_on>
+            <update_rate>100</update_rate>
+            <pose>0 0 0 0 0 0</pose>
+            <visualize>true</visualize>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>640</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-1.6</min_angle>
+                        <max_angle>1.6</max_angle>
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>0.08</min>
+                    <max>4.0</max>
+                    <resolution>0.01</resolution>
+                </range>
+            </ray>
+            <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_laser.so">
+                <gaussianNoise>0.00005</gaussianNoise>
+                <alwaysOn>true</alwaysOn>
+                <updateRate>50</updateRate>
+                <topicName>/scan</topicName>
+                <frameName>ray_sensor_back</frameName>
+                <!--ns>/optimus</ns-->
+                <hokuyoMinIntensity>101</hokuyoMinIntensity>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+    <joint name="j_ray_sensor_front" type="fixed">
+        <parent link="base_link"/>
+        <child link="ray_sensor_front"/>
+        <origin xyz="0.5 0 0.5" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+    <link name="ray_sensor_front">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="0.0001"/>
+            <inertia
+                    ixx="1e-10" ixy="0.0" ixz="0.0"
+                    iyy="1e-10" iyz="0"
+                    izz="1e-10"/>
+        </inertial>
+    </link>
+    <gazebo reference="ray_sensor_front">
+        <sensor type="ray" name="ray_sensor">
+            <always_on>true</always_on>
+            <update_rate>100</update_rate>
+            <pose>1 0 0.1 0 0 0</pose>
+            <visualize>true</visualize>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>640</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-2</min_angle>
+                        <max_angle>2</max_angle>
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>0.08</min>
+                    <max>20.0</max>
+                    <resolution>0.01</resolution>
+                </range>
+            </ray>
+            <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_laser.so">
+                <gaussianNoise>0.00005</gaussianNoise>
+                <alwaysOn>true</alwaysOn>
+                <updateRate>50</updateRate>
+                <topicName>/scan</topicName>
+                <frameName>ray_sensor_front</frameName>
+                <!--ns>/optimus</ns-->
+                <hokuyoMinIntensity>101</hokuyoMinIntensity>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+
+    <joint name="j_imu_link" type="fixed">
+        <parent link="base_link"/>
+        <child link="imu_link"/>
+        <origin xyz="0.3 0 0" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+    <link name="imu_link">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="0.0001"/>
+            <inertia
+                    ixx="1e-10" ixy="0.0" ixz="0.0"
+                    iyy="1e-10" iyz="0"
+                    izz="1e-10"/>
+        </inertial>
+    </link>
+
+
+    <gazebo reference="imu_link">
+        <sensor type="imu" name="imu">
+            <always_on>true</always_on>
+            <visualize>true</visualize>
+        </sensor>
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <gazebo>
+        <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+            <alwaysOn>true</alwaysOn>
+            <bodyName>imu_link</bodyName>
+            <frameName>imu_link</frameName>
+            <topicName>imu</topicName>
+            <serviceName>imu_service</serviceName>
+            <gaussianNoise>0.0</gaussianNoise>
+            <updateRate>200</updateRate>
+            <imu>
+                <noise>
+                    <type>gaussian</type>
+                    <rate>
+                        <mean>0.0</mean>
+                        <stddev>2e-7</stddev>
+                        <bias_mean>0.0</bias_mean>
+                        <bias_stddev>0.0</bias_stddev>
+                    </rate>
+                    <accel>
+                        <mean>0.0</mean>
+                        <stddev>1.7e-7</stddev>
+                        <bias_mean>0.0</bias_mean>
+                        <bias_stddev>0.0</bias_stddev>
+                    </accel>
+                </noise>
+            </imu>
+        </plugin>
+    </gazebo>
+
+    <gazebo>
+        <plugin name="optimus_diff_drive" filename="libgazebo_ros_diff_drive.so">
+            <commandTopic>cmd_vel</commandTopic>
+            <odometryTopic>odom</odometryTopic>
+            <odometryFrame>odom</odometryFrame>
+            <!--            <odometrySource>world</odometrySource>-->
+            <publishOdomTF>true</publishOdomTF>
+            <robotBaseFrame>base_footprint</robotBaseFrame>
+            <publishWheelTF>false</publishWheelTF>
+            <publishTf>true</publishTf>
+            <publishWheelJointState>true</publishWheelJointState>
+            <legacyMode>false</legacyMode>
+            <updateRate>30</updateRate>
+            <leftJoint>j_whFL</leftJoint>
+            <rightJoint>j_whFR</rightJoint>
+            <wheelSeparation>0.445</wheelSeparation>
+            <wheelDiameter>0.26</wheelDiameter>
+            <wheelAcceleration>1</wheelAcceleration>
+            <wheelTorque>10</wheelTorque>
+            <rosDebugLevel>na</rosDebugLevel>
+        </plugin>
+    </gazebo>
+</robot>

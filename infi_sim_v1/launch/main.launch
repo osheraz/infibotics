@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<launch>
+        <!--common settings-->
+    <arg name="gazebo" default="false"/>
+    <arg name="lidar" default="false"/>
+    <arg name="arm" default="false"/>
+    <arg name="joy" default="false"/>
+    <arg name="rviz" default="false"/>  <!--="true"/>-->
+    <arg name="simRate" default="nan"/>
+    <arg name="main_robot_name" default="OPTIMUS"/>
+    <param name="use_sim_time" type="bool" value="true"/>     <!-- Enable simulation clock -->
+    <arg name="x_pos" default="0"/>
+    <arg name="y_pos" default="0"/>
+    <arg name="z_pos" default="0"/>
+    <arg name="Y_rot" default="0"/>     <!--arg name="Y_rot" default="1.5707"/-->
+    <arg name="headless" default="false"/>
+    <arg name="gui" default="true"/>
+    <arg name="world_name" default="$(find infi_sim_v1)/worlds/main.world"/>
+    <arg name="tf_prefix" default="$(optenv ROS_NAMESPACE)"/>
+    <arg name="debug" default="true"/>
+    <arg name="verbose" default="true"/>
+    <arg name="gmapping" default="false"/>
+    <arg name="amcl" default="false"/>
+    <arg name="hector" default="false"/>
+    <arg name="carto" default="false"/>
+    <arg name="move_base" default="false"/>
+  <param name="use_sim_time" value="false"/>
+
+    <!-- Kobi shit need to be here  -->
+    <group if="$(arg arm)">
+        <include file="$(find manipulator_h_manager)/launch/manipulator_h_manager_gazebo.launch"/>
+        <include file="$(find manipulator_h_gazebo)/launch/position_controller.launch"/>
+        <node name="manipulator_h_gui" pkg="manipulator_h_gui" type="manipulator_h_gui" respawn="false"/>
+
+        <group if="$(arg gazebo)">
+                <env name="GAZEBO_MODEL_PATH" value="$(find infi_sim_v1)/models:$(optenv GAZEBO_MODEL_PATH)"/>
+               <param name="robot_description" command="$(find xacro)/xacro '$(find infi_sim_v1)/models/OPTIMUS_robot_001/model.xacro' --inorder "/>
+                <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" output="screen"
+                  args="-urdf -param robot_description -model $(arg main_robot_name) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -Y $(arg Y_rot)"/>
+
+                <include file="$(find infi_sim_v1)/launch/world.launch">
+                    <arg name="paused" value="false"/>
+                    <arg name="headless" value="$(arg headless)"/>
+                    <arg name="gui" value="$(arg gui)"/>
+                    <arg name="world_name" value="$(arg world_name)"/>
+                    <arg name="verbose" value="true"/>
+                    <!--<arg name="gzclient_args" value="-g libGUICameraPlugin.so"/>-->
+                </include>
+
+                <node pkg="rh_p12_rn_gazebo" type="gazebo_rh_pub" name="gazebo_grip_pub"/>
+            </group>
+    </group>
+
+    <group unless="$(arg arm)">
+            <group if="$(arg gazebo)">
+                <env name="GAZEBO_MODEL_PATH" value="$(find infi_sim_v1)/models:$(optenv GAZEBO_MODEL_PATH)"/>
+                <param name="robot_description" command="$(find xacro)/xacro '$(find infi_sim_v1)/models/OPTIMUS_robot_001/model-no-arm.xacro' --inorder"/>
+                <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" output="screen"
+                  args="-urdf -param robot_description -model $(arg main_robot_name) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -Y $(arg Y_rot)"/>
+
+                <include file="$(find infi_sim_v1)/launch/world.launch">
+                    <arg name="paused" value="false"/>
+                    <arg name="headless" value="$(arg headless)"/>
+                    <arg name="gui" value="$(arg gui)"/>
+                    <arg name="world_name" value="$(arg world_name)"/>
+                    <arg name="verbose" value="true"/>
+                    <!--<arg name="gzclient_args" value="-g libGUICameraPlugin.so"/>-->
+                </include>
+            </group>
+    </group>
+
+        <!--load hardware stuff-->
+    <group unless="$(arg gazebo)">
+
+        <param name="robot_description" command="$(find xacro)/xacro '$(find infi_sim_v1)/models/OPTIMUS_robot_001/model-no-arm_real.xacro' --inorder"/>
+        <include file="$(find roboclaw_node)/launch/roboclaw.launch" />
+
+        <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="false"/>
+
+        <group if="$(arg lidar)">
+            <node name="sick_tim551_2050001" pkg="sick_tim" type="sick_tim551_2050001" respawn="false" output="screen">
+                <param name="frame_id" type="str" value="ray_sensor_front" />
+                 <param name="min_ang" type="double" value="-1.65619449019" />
+                 <param name="max_ang" type="double" value="1.65619449019" />
+            </node>
+     </group>
+
+    </group>
+    <!-- convert joint states to TF transforms for rviz, etc -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
+
+
+    <group if="$(arg joy)">
+        <node name="joy_node" pkg="joy" type="joy_node" respawn="false"/>
+        <node pkg="teleop_twist_joy" type="teleop_node" name="teleop_node" output="screen">
+            <param name="enable_button" type="int" value="0"/>
+            <param name="enable_turbo_button" type="int" value="4"/>
+        </node>
+    </group>
+
+    <group if="$(arg rviz)">
+        <node pkg="rviz" type="rviz" name="rviz" required="true"
+              args="-d $(find infi_sim_v1)/rviz/main.rviz"/>
+    </group>
+
+    <group if="$(arg amcl)">
+        <include file="$(find infi_navigation)/launch/navigation.launch" >
+            <arg name="amcl" value="$(arg amcl)"/>
+            <arg name="x_pos" value="$(arg x_pos)"/>
+            <arg name="y_pos" value="$(arg y_pos)"/>
+            <arg name="Y_rot" value="$(arg Y_rot)"/>
+	</include>
+    </group>
+
+    <group if="$(arg gmapping)">
+        <include file="$(find infi_navigation)/launch/navigation.launch" >
+            <arg name="gmapping" value="$(arg gmapping)"/>
+        </include>
+    </group>
+
+    <group if="$(arg carto)">
+        <include file="$(find infi_navigation)/launch/cartographer_demo.launch" >
+        </include>
+    </group>
+
+    <group if="$(arg hector)">
+        <include file="$(find infi_navigation)/launch/navigation.launch" >
+            <arg name="hector" value="$(arg hector)"/>
+        </include>
+    </group>
+
+    <group if="$(arg move_base)">
+        <include file="$(find infi_navigation)/launch/navigation.launch" >
+            <arg name="move_base" value="$(arg move_base)"/>
+        </include>
+    </group>
+
+    <!--if no one publish map-odom tf, load static tf-->
+    <group unless="$(arg gmapping)">
+        <group unless="$(arg hector)">
+            <group unless="$(arg amcl)">
+                <group unless="$(arg carto)">
+                     <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 /map /odom 20" />
+                    </group>
+            </group>
+        </group>
+    </group>
+
+      <!-- cloud transformer - transfrom PCL from camera_link to base_footprint -->
+  <node name="cloud_transformer" pkg="infi_perception" type="cloud_transformer" respawn="false"/>
+
+</launch>

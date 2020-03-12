@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="Robot_1">
+  <link
+    name="robot_body">
+    <inertial>
+      <origin
+        xyz="-0.018786 -0.1 0.32663"
+        rpy="0 0 0" />
+      <mass
+        value="39.102" />
+      <inertia
+        ixx="0.68635"
+        ixy="-0.00059075"
+        ixz="0.00020553"
+        iyy="0.27409"
+        iyz="0.016244"
+        izz="0.59039" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Robot_1/meshes/robot_body.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Robot_1/meshes/robot_body.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="wheel_right">
+    <inertial>
+      <origin
+        xyz="1.767E-05 5.3418E-11 -5.3418E-11"
+        rpy="0 0 0" />
+      <mass
+        value="5.0205" />
+      <inertia
+        ixx="0.04474"
+        ixy="1.4221E-12"
+        ixz="1.4221E-12"
+        iyy="0.024829"
+        iyz="-1.2428E-07"
+        izz="0.024829" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Robot_1/meshes/wheel_right.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29804 0.29804 0.29804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Robot_1/meshes/wheel_right.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_right"
+    type="continuous">
+    <origin
+      xyz="-0.23 -0.42691 0.0733"
+      rpy="2.7865 0 3.1416" />
+    <parent
+      link="robot_body" />
+    <child
+      link="wheel_right" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="wheel_left">
+    <inertial>
+      <origin
+        xyz="1.8597E-11 -0.049018 -7.3215E-11"
+        rpy="0 0 0" />
+      <mass
+        value="5.0205" />
+      <inertia
+        ixx="0.024829"
+        ixy="-1.9493E-12"
+        ixz="-5.9306E-08"
+        iyy="0.04474"
+        iyz="-4.9511E-13"
+        izz="0.024829" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Robot_1/meshes/wheel_left.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0.50196 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Robot_1/meshes/wheel_left.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_left"
+    type="continuous">
+    <origin
+      xyz="0.181 -0.42691 0.0733"
+      rpy="0 1.4923 1.5708" />
+    <parent
+      link="robot_body" />
+    <child
+      link="wheel_left" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="elevator">
+    <inertial>
+      <origin
+        xyz="-4.0447E-16 0.019617 -0.080809"
+        rpy="0 0 0" />
+      <mass
+        value="0.61002" />
+      <inertia
+        ixx="0.0003966"
+        ixy="-5.14E-20"
+        ixz="9.6067E-21"
+        iyy="0.0014211"
+        iyz="3.5591E-05"
+        izz="0.0012696" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Robot_1/meshes/elevator.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.25098 0.25098 0.25098 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Robot_1/meshes/elevator.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="elevator"
+    type="prismatic">
+    <origin
+      xyz="0 -0.4825 0.6682"
+      rpy="1.5708 0 0" />
+    <parent
+      link="robot_body" />
+    <child
+      link="elevator" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>

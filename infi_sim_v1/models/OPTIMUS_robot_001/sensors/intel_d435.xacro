@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<robot name="intel_d435" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <joint name="intel_d435_mount_fixed" type="fixed">
+        <origin xyz="${INTEL_D435_MOUNT_X} ${INTEL_D435_MOUNT_Y} ${INTEL_D435_MOUNT_Z}"
+                rpy="${INTEL_D435_MOUNT_R} ${INTEL_D435_MOUNT_P} ${INTEL_D435_MOUNT_Y}"/>
+        <parent link="${INTEL_D435_MOUNT_LINK}"/>
+        <child link="camera_link"/>
+    </joint>
+
+    <!-- camera depth joints and links -->
+    <link name="camera_link">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="0.0446256012085417"/>
+            <inertia
+                    ixx="2.62358816469287E-05"
+                    ixy="3.51148589025883E-07"
+                    ixz="3.91275343984781E-11"
+                    iyy="4.02618646244092E-06"
+                    iyz="-6.05255657169474E-09"
+                    izz="2.64982132448102E-05"/>
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/intel_d435.stl" scale="1 1 1"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/intel_d435.stl" scale="1 1 1"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <gazebo reference="camera_link">
+        <sensor type="depth" name="intel_d435">
+            <!--<pose>0 0 0 0 0 0</pose>-->
+            <always_on>1</always_on>
+            <visualize>true</visualize>
+            <camera>
+                <horizontal_fov>1.592</horizontal_fov>
+                <image>
+                    <width>1280</width>
+                    <height>800</height>
+                    <format>B8G8R8</format>
+                </image>
+                <depth_camera/>
+                <clip>
+                    <near>0.1</near>
+                    <far>100</far>
+                </clip>
+            </camera>
+            <plugin name="camera_controller" filename="libgazebo_ros_openni_kinect.so">
+                <alwaysOn>true</alwaysOn>
+                <updateRate>10.0</updateRate>
+                <cameraName>intel_d435/camera</cameraName>
+                <frameName>camera_link</frameName>
+                <imageTopicName>color/image_raw</imageTopicName>
+                <depthImageTopicName>depth/color/image_raw</depthImageTopicName>
+                <pointCloudTopicName>depth/color/points</pointCloudTopicName>
+                <cameraInfoTopicName>color/camera_info</cameraInfoTopicName>
+                <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+                <pointCloudCutoff>0.4</pointCloudCutoff>
+                <hackBaseline>0.07</hackBaseline>
+                <distortionK1>0.0</distortionK1>
+                <distortionK2>0.0</distortionK2>
+                <distortionK3>0.0</distortionK3>
+                <distortionT1>0.0</distortionT1>
+                <distortionT2>0.0</distortionT2>
+                <CxPrime>0.0</CxPrime>
+                <Cx>0.0</Cx>
+                <Cy>0.0</Cy>
+                <focalLength>0.0</focalLength>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+    <!-- camera depth joints and links -->
+    <joint name="camera_depth_joint" type="fixed">
+        <origin xyz="0 -0.0122 0" rpy="0 0 0"/>
+        <parent link="camera_link"/>
+        <child link="camera_depth_frame"/>
+    </joint>
+    <link name="camera_depth_frame"/>
+
+    <joint name="camera_depth_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
+        <parent link="camera_depth_frame"/>
+        <child link="camera_depth_optical_frame"/>
+    </joint>
+    <link name="camera_depth_optical_frame"/>
+
+    <!-- camera left IR joints and links -->
+    <joint name="camera_left_ir_joint" type="fixed">
+        <origin xyz="0 -0.0322 0" rpy="0 0 0"/>
+        <parent link="camera_link"/>
+        <child link="camera_left_ir_frame"/>
+    </joint>
+    <link name="camera_left_ir_frame"/>
+
+    <joint name="camera_left_ir_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
+        <parent link="camera_left_ir_frame"/>
+        <child link="camera_left_ir_optical_frame"/>
+    </joint>
+    <link name="camera_left_ir_optical_frame"/>
+
+    <!-- camera right IR joints and links -->
+    <joint name="camera_right_ir_joint" type="fixed">
+        <origin xyz="0 0.0178 0" rpy="0 0 0"/>
+        <parent link="camera_link"/>
+        <child link="camera_right_ir_frame"/>
+    </joint>
+    <link name="camera_right_ir_frame"/>
+
+    <joint name="camera_right_ir_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
+        <parent link="camera_right_ir_frame"/>
+        <child link="camera_right_ir_optical_frame"/>
+    </joint>
+    <link name="camera_right_ir_optical_frame"/>
+
+    <!-- camera fisheye joints and links -->
+    <joint name="camera_fisheye_joint" type="fixed">
+        <origin xyz="0 0.0322 0" rpy="0 0 0"/>
+        <parent link="camera_link"/>
+        <child link="camera_fisheye_frame"/>
+    </joint>
+    <link name="camera_fisheye_frame"/>
+
+    <joint name="camera_fisheye_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
+        <parent link="camera_fisheye_frame"/>
+        <child link="camera_fisheye_optical_frame"/>
+    </joint>
+    <link name="camera_fisheye_optical_frame"/>
+</robot>

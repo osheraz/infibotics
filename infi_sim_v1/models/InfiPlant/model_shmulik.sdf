@@ -1,0 +1,40 @@
+<?xml version='1.0'?>
+<sdf version='1.6'>
+    <model name='InfiPlant'>
+        <pose frame=''>-10 -10 0 0 0 0</pose>
+        
+    <link name="link">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <mass>1000</mass>
+        <inertia>
+          <ixx>10</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>10</iyy>
+          <iyz>0</iyz>
+          <izz>10</izz>
+        </inertia>
+      </inertial>
+
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <uri>model://InfiPlant/warehouse_2.dae</uri>
+          </mesh>
+
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://InfiPlant/warehouse_2.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+
+    <static>1</static>
+    </model>
+</sdf>

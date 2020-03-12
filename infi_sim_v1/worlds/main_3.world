@@ -1,0 +1,403 @@
+<sdf version='1.6'>
+    <world name='default'>
+        <light name='sun' type='directional'>
+            <cast_shadows>1</cast_shadows>
+            <pose frame=''>0 0 10 0 -0 0</pose>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+            <attenuation>
+                <range>1000</range>
+                <constant>0.9</constant>
+                <linear>0.01</linear>
+                <quadratic>0.001</quadratic>
+            </attenuation>
+            <direction>-0.5 0.1 -0.9</direction>
+        </light>
+        <model name='ground_plane'>
+            <static>1</static>
+            <link name='link'>
+                <collision name='collision'>
+                    <geometry>
+                        <plane>
+                            <normal>0 0 1</normal>
+                            <size>100 100</size>
+                        </plane>
+                    </geometry>
+                    <surface>
+                        <contact>
+                            <collide_bitmask>65535</collide_bitmask>
+                            <ode/>
+                        </contact>
+                        <friction>
+                            <ode>
+                                <mu>100</mu>
+                                <mu2>50</mu2>
+                            </ode>
+                            <torsional>
+                                <ode/>
+                            </torsional>
+                        </friction>
+                        <bounce/>
+                    </surface>
+                    <max_contacts>10</max_contacts>
+                </collision>
+                <visual name='visual'>
+                    <cast_shadows>0</cast_shadows>
+                    <geometry>
+                        <plane>
+                            <normal>0 0 1</normal>
+                            <size>100 100</size>
+                        </plane>
+                    </geometry>
+                    <material>
+                        <script>
+                            <uri>file://media/materials/scripts/gazebo.material</uri>
+                            <name>Gazebo/Grey</name>
+                        </script>
+                    </material>
+                </visual>
+                <self_collide>0</self_collide>
+                <enable_wind>0</enable_wind>
+                <kinematic>0</kinematic>
+            </link>
+        </model>
+        <gravity>0 0 -9.8</gravity>
+        <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+        <atmosphere type='adiabatic'/>
+        <physics name='default_physics' default='0' type='ode'>
+            <max_step_size>0.001</max_step_size>
+            <real_time_factor>1</real_time_factor>
+            <real_time_update_rate>1000</real_time_update_rate>
+        </physics>
+        <scene>
+            <ambient>0.4 0.4 0.5 1</ambient>
+            <background>0.7 0.5 0.7 1</background>
+            <shadows>1</shadows>
+        </scene>
+        <wind/>
+        <spherical_coordinates>
+            <surface_model>EARTH_WGS84</surface_model>
+            <latitude_deg>0</latitude_deg>
+            <longitude_deg>0</longitude_deg>
+            <elevation>0</elevation>
+            <heading_deg>0</heading_deg>
+        </spherical_coordinates>
+        <state world_name='default'>
+            <sim_time>209 383000000</sim_time>
+            <real_time>210 611398319</real_time>
+            <wall_time>1543260848 979211527</wall_time>
+            <iterations>209383</iterations>
+           <!-- <model name='InfiPlant'>
+                <pose frame=''>0.052968 0.040809 0 0 -0 0</pose>
+                <scale>1 1 1</scale>
+                <link name='Wall_0'>
+                    <pose frame=''>4.55297 -2.95919 1.5 0 -0 0</pose>
+                    <velocity>0 0 0 0 -0 0</velocity>
+                    <acceleration>0 0 0 0 -0 0</acceleration>
+                    <wrench>0 0 0 0 -0 0</wrench>
+                </link>
+                <link name='Wall_1'>
+                    <pose frame=''>4.55297 17.0408 1.5 0 -0 0</pose>
+                    <velocity>0 0 0 0 -0 0</velocity>
+                    <acceleration>0 0 0 0 -0 0</acceleration>
+                    <wrench>0 0 0 0 -0 0</wrench>
+                </link>
+                <link name='Wall_2'>
+                    <pose frame=''>-2.94703 7.04081 1.5 0 -0 1.5708</pose>
+                    <velocity>0 0 0 0 -0 0</velocity>
+                    <acceleration>0 0 0 0 -0 0</acceleration>
+                    <wrench>0 0 0 0 -0 0</wrench>
+                </link>
+                <link name='Wall_3'>
+                    <pose frame=''>12.053 7.04081 1.5 0 -0 1.5708</pose>
+                    <velocity>0 0 0 0 -0 0</velocity>
+                    <acceleration>0 0 0 0 -0 0</acceleration>
+                    <wrench>0 0 0 0 -0 0</wrench>
+                </link>
+            </model>-->
+            <model name='ground_plane'>
+                <pose frame=''>0 0 0 0 -0 0</pose>
+                <scale>1 1 1</scale>
+                <link name='link'>
+                    <pose frame=''>0 0 0 0 -0 0</pose>
+                    <velocity>0 0 0 0 -0 0</velocity>
+                    <acceleration>0 0 0 0 -0 0</acceleration>
+                    <wrench>0 0 0 0 -0 0</wrench>
+                </link>
+            </model>
+            <light name='sun'>
+                <pose frame=''>0 0 10 0 -0 0</pose>
+            </light>
+        </state>
+
+
+        <model name="InfiPlant">
+            <include>
+                <uri>model://InfiPlant</uri>
+            </include>
+            <pose frame=''>0.052968 0.040809 0 0 -0 0</pose>
+        </model>
+	
+	<!-- ........................ROW 1 ........................... -->
+	<model name="HASS_ST_20_1_1">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>0 0 1 0 0 0</pose>
+        </model>
+	
+	<model name="HASS_ST_20_1_2">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>8 0 1 0 0 0</pose>
+        </model>
+
+	<model name="HASS_ST_20_1_3">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>16 0 1 0 0 0</pose>
+        </model>
+
+	<!-- ........................ROW 2 ........................... -->
+	<model name="HASS_ST_20_2_1">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>0 5 1 0 0 0</pose>
+        </model>
+	
+	<model name="HASS_ST_20_2_2">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>8 5 1 0 0 0</pose>
+        </model>
+
+	<model name="HASS_ST_20_2_3">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>16 5 1 0 0 0</pose>
+        </model>
+	<!-- ........................ROW 3 ........................... -->
+	<model name="HASS_ST_20_3_1">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>0 10 1 0 0 0</pose>
+        </model>
+	
+	<model name="HASS_ST_20_3_2">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>8 10 1 0 0 0</pose>
+        </model>
+
+	<model name="HASS_ST_20_3_3">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>16 10 1 0 0 0</pose>
+        </model>
+	<!-- ........................ROW 4 ........................... -->
+	<model name="HASS_ST_20_4_1">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>0 15 1 0 0 0</pose>
+        </model>
+	
+	<model name="HASS_ST_20_4_2">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>8 15 1 0 0 0</pose>
+        </model>
+
+	<model name="HASS_ST_20_4_3">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>16 15 1 0 0 0</pose>
+        </model>
+	<!-- ........................ROW 5 ........................... -->
+	<model name="HASS_ST_20_5_1">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>0 20 1 0 0 0</pose>
+        </model>
+	
+	<model name="HASS_ST_20_5_2">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>8 20 1 0 0 0</pose>
+        </model>
+
+	<model name="HASS_ST_20_5_3">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>16 20 1 0 0 0</pose>
+        </model>
+	<!-- ........................ROW 6 ........................... -->
+	<model name="HASS_ST_20_6_1">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>0 25 1 0 0 0</pose>
+        </model>
+	
+	<model name="HASS_ST_20_6_2">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>8 25 1 0 0 0</pose>
+        </model>
+
+	<model name="HASS_ST_20_6_3">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>16 25 1 0 0 0</pose>
+        </model>
+	<!-- ........................ROW 7 ........................... -->
+	<model name="HASS_ST_20_7_1">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>0 30 1 0 0 0</pose>
+        </model>
+	
+	<model name="HASS_ST_20_7_2">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>8 30 1 0 0 0</pose>
+        </model>
+
+	<model name="HASS_ST_20_7_3">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>16 30 1 0 0 0</pose>
+        </model>
+	<!-- ........................ROW 8 ........................... -->
+	<model name="HASS_ST_20_8_1">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>0 35 1 0 0 0</pose>
+        </model>
+	
+	<model name="HASS_ST_20_8_2">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>8 35 1 0 0 0</pose>
+        </model>
+
+	<model name="HASS_ST_20_8_3">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>16 35 1 0 0 0</pose>
+        </model>
+	<!-- ........................ROW 9 ........................... -->
+	<model name="HASS_ST_20_9_1">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>0 40 1 0 0 0</pose>
+        </model>
+	
+	<model name="HASS_ST_20_9_2">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>8 40 1 0 0 0</pose>
+        </model>
+
+	<model name="HASS_ST_20_9_3">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>16 40 1 0 0 0</pose>
+        </model>
+	<!-- ........................ROW 10 ........................... -->
+	<model name="HASS_ST_20_10_1">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>0 40 1 0 0 0</pose>
+        </model>
+	
+	<model name="HASS_ST_20_10_2">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>8 40 1 0 0 0</pose>
+        </model>
+
+	<model name="HASS_ST_20_10_3">
+            <include>
+                <uri>model://HASS_ST_20</uri>
+                <part_name>spawned_part_001_brick</part_name>
+            </include>
+            <pose>16 40 1 0 0 0</pose>
+        </model>
+
+        <!--
+
+        <model name="pioneer3at">
+            <include>
+                <uri>model://pioneer3at</uri>
+            </include>
+            <pose>3 0 1 0 0 0</pose>
+
+        </model>
+        -->
+
+
+        <gui fullscreen='0'>
+            <camera name='user_camera'>
+                <pose frame=''>-9 -9 14 0 0.651640 0.852241</pose>
+                <view_controller>orbit</view_controller>
+                <projection_type>perspective</projection_type>
+            </camera>
+        </gui>
+    </world>
+</sdf>

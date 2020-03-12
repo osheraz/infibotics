@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+
+  <param name="use_sim_time" value="false" />
+
+      <!-- load model & control in gazebo -->
+  <include file="$(find infi_sim_v1)/launch/main.launch" />
+      <!-- load move base , map and amcl -->
+  <include file="navigation.launch" >
+        <arg name="got_map" value="true"/>
+
+  <!-- For fake localization we need static transform between /odom and /map -->
+  <!--node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 /map /odom 100" /-->
+
+  <!-- Start the navigation test -->
+  <node pkg="infi_navigation" type="nav_node.py" name="nav_node" output="screen"/>
+
+</launch>

@@ -1,0 +1,76 @@
+[device info]
+model_name  = MX-64
+device_type = dynamixel
+
+[type info]
+torque_to_current_value_ratio   = 109.3747778
+velocity_to_value_ratio         = 954.93
+
+value_of_0_radian_position      = 2048
+value_of_min_radian_position    = 0
+value_of_max_radian_position    = 4095
+min_radian                      = -3.14159265
+max_radian                      =  3.14159265
+
+torque_enable_item_name         = torque_enable
+present_position_item_name      = present_position
+present_velocity_item_name      = present_velocity
+present_current_item_name       = present_current
+goal_position_item_name         = goal_position
+goal_velocity_item_name         = goal_velocity
+goal_current_item_name          = goal_current
+position_d_gain_item_name       = position_d_gain
+position_i_gain_item_name       = position_i_gain
+position_p_gain_item_name       = position_p_gain
+velocity_d_gain_item_name       = 
+velocity_i_gain_item_name       = velocity_i_gain
+velocity_p_gain_item_name       = velocity_p_gain
+
+[control table]
+# addr | item name              | length| access| memory    |   min value   |  max value| signed
+0	|	model_number		    |	2	|	R	|	EEPROM 	|	0		    |	65535	|	N
+6	|	firmware_version	    |	1	|	R	|	EEPROM 	|	0		    |	254	    |	N
+7	|	ID			            |	1	|	RW	|	EEPROM 	|	2		    |	252	    |	N
+8	|	baudrate		        |	1	|	RW	|	EEPROM 	|	0		    |	8	    |	N
+9	|	return_delay_time	    |	1	|	RW	|	EEPROM 	|	0		    |	254	    |	N
+10	|	drive_mode		        |	1	|	RW	|	EEPROM 	|	0		    |	3	    |	N
+11	|	operating_mode		    |	1	|	RW	|	EEPROM 	|	0		    |	4	    |	N
+20	|	homing_offset		    |	4	|	RW	|	EEPROM 	|	-1044479	|	1044479	|	Y
+24	|	moving_threshold	    |	4	|	RW	|	EEPROM 	|	0		    |	1023	|	N
+31	|	temperature_limit	    |	1	|	RW	|	EEPROM 	|	0		    |	100	    |	N
+32	|	max_voltage_limit	    |	2	|	RW	|	EEPROM 	|	95		    |	160	    |	N
+34	|	min_voltage_limit	    |	2	|	RW	|	EEPROM 	|	95		    |	160 	|	N
+36	|	PWM_limit		        |	2	|	RW	|	EEPROM 	|	0		    |	885	    |	N
+38	|	current_limit		    |	2	|	RW	|	EEPROM 	|	0		    |	1941	|	N
+44	|	velocity_limit		    |	4	|	RW	|	EEPROM 	|	0		    |	1023	|	N
+48	|	max_position_limit	    |	4	|	RW	|	EEPROM 	|	0		    |	4095	|	N
+52	|	min_position_limit	    |	4	|	RW	|	EEPROM 	|	0		    |	4095	|	N
+63	|	shutdown		        |	1	|	RW	|	EEPROM 	|	0		    |	255	    |	N
+64	|	torque_enable		    |	1	|	RW	|	RAM	    |	0	    	|	1	    |	N
+65	|	LED			            |	1	|	RW	|	RAM	    |	0		    |	1	    |	N
+68	|	status_return_level	    |	1	|	RW	|	RAM	    |	0		    |	2	    |	N
+69	|	registered_instruction	|	1	|	R	|	RAM	    |	0		    |	1	    |	N
+70	|	hardware_error_status	|	1	|	R	|	RAM	    |	0		    |	255 	|	N
+76	|	velocity_i_gain		    |	2	|	RW	|	RAM	    |	0		    |	16383	|	N
+78	|	velocity_p_gain		    |	2	|	RW	|	RAM	    |	0		    |	16383	|	N
+80	|	position_d_gain		    |	2	|	RW	|	RAM	    |	0		    |	16383	|	N
+82	|	position_i_gain		    |	2	|	RW	|	RAM	    |	0		    |	16383	|	N
+84	|	position_p_gain		    |	2	|	RW	|	RAM	    |	0		    |	16383	|	N
+88	|	Feedforward_2nd_Gain	|	2	|	RW	|	RAM	    |	0		    |	16383	|	N
+90	|	Feedforward_1st_Gain	|	2	|	RW	|	RAM	    |	0		    |	16383	|	N
+98	|	BUS_Watchdog		    |	1	|	RW	|	RAM	    |	-1		    |	127	    |	Y
+100	|	goal_PWM		        |	2	|	RW	|	RAM	    |	0		    |	885	    |	N
+102	|	goal_current		    |	2	|	RW	|	RAM	    |	0		    |	1941	|	Y
+104	|	goal_velocity		    |	4	|	RW	|	RAM	    |	-1023		|	1023	|	N
+116	|	goal_position		    |	4	|	RW	|	RAM	    |	0       	|	4095	|	N
+120	|	realtime_tick		    |	2	|	R	|	RAM	    |	0		    |	32767	|	N
+122	|	moving			        |	1	|	R	|	RAM	    |	0		    |	1	    |	N
+123	|	moving_status		    |	1	|	R	|	RAM	    |	0		    |	255	    |	N
+124	|	present_PWM		        |	2	|	R	|	RAM	    |	0	        |	885	    |	N
+126	|	present_current		    |	2	|	R	|	RAM	    |	0		    |	1941    |	N
+128	|	present_velocity	    |	4	|	R	|	RAM	    |	-1023       |	1023    |	Y
+132	|	present_position	    |	4	|	R	|	RAM	    |   0           |   4095    |	N
+136	|	velocity_trajectory	    |	4	|	R	|	RAM	    |			    |		    |	Y
+140	|	position_trajectory	    |	4	|	R	|	RAM	    |			    |		    |	Y
+144	|	present_voltage     	|	2	|	R	|	RAM	    |	95		    |	160	    |	N
+146	|	present_temperature	    |	1	|	R	|	RAM	    |		0	    |	100	    |	N

@@ -1,0 +1,47 @@
+controller_frequency: 7.0
+recovery_behavior_enabled: false
+clearing_rotation_allowed: false
+
+TrajectoryPlannerROS:
+   max_vel_x: 0.4
+   min_vel_x: 0.1
+   max_rotational_vel: 0.6
+   min_in_place_vel_theta: 0.55
+   escape_vel: -0.3
+   acc_lim_x: 0.05
+   acc_lim_y: 0.5
+   acc_lim_th: 0.07
+   #min_rot_vel: 0.6
+   #min_trans_vel: 0.6
+   #max_trans_vel: 3.0
+   #min_rotational_vel: 0.70
+
+   holonomic_robot: false
+   yaw_goal_tolerance: 0.5 # about 6 degrees
+   xy_goal_tolerance: 0.8  # 5 cm
+   latch_xy_goal_tolerance: true
+   pdist_scale: 0.8
+   gdist_scale: 0.4
+   meter_scoring: true
+
+   heading_lookahead: 0.325
+   heading_scoring: false
+   heading_scoring_timestep: 0.8
+   occdist_scale: 0.1
+   oscillation_reset_dist: 0.05
+   publish_cost_grid_pc: false
+   prune_plan: true
+
+   sim_time: 2.0 
+   # The amount of time to forward-simulate trajectories in seconds
+   sim_granularity: 0.025 
+   # The step size, in meters, to take between points on a given trajectory
+   angular_sim_granularity: 0.025 
+   # The step size, in radians, to take between angular samples on a given trajectory.
+   vx_samples: 12  
+   # The number of samples to use when exploring the x velocity space
+   vtheta_samples: 20 
+   # The number of samples to use when exploring the theta velocity space
+
+   dwa: false
+   simple_attractor: false

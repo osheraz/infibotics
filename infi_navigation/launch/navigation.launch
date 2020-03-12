@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<launch>
+
+  <master auto="start"/>
+  <arg name="gmapping" default="false"/>
+  <arg name="hector" default="false"/>
+  <arg name="got_map" default="false"/>
+  <arg name="move_base" default="false"/>
+  <arg name="amcl" default="false"/>
+  <arg name="x_pos" default="0"/>
+  <arg name="y_pos" default="0"/>
+  <arg name="z_pos" default="0."/>
+  <!--arg name="Y_rot" default="1.5707"/-->
+  <arg name="Y_rot" default="0"/>
+  <arg name="base_global_planner" default="navfn/NavfnROS"/>
+  <arg name="base_local_planner" default="dwa_local_planner/DWAPlannerROS"/>
+
+  <group if="$(arg move_base)">
+        <rosparam file="$(find infi_navigation)/config/planner_parameters.yaml" command="load" ns="move_base"/>
+        <rosparam file="$(find infi_navigation)/config/costmap_common_params.yaml" command="load" ns="move_base/global_costmap" />
+        <rosparam file="$(find infi_navigation)/config/costmap_common_params.yaml" command="load" ns="move_base/local_costmap" />
+        <rosparam file="$(find infi_navigation)/config/local_costmap_params.yaml" command="load" ns="move_base/local_costmap" />
+        <rosparam file="$(find infi_navigation)/config/global_costmap_params.yaml" command="load" ns="move_base/global_costmap"/>
+
+        <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" >
+            <param name="base_global_planner" value="$(arg base_global_planner)"/>
+            <param name="base_local_planner" value="$(arg base_local_planner)"/>
+            <param name="local_costmap/width" value="3.0"/>
+            <param name="local_costmap/height" value="3.0"/>
+        </node>
+
+      <node pkg="rviz" type="rviz" name="rviz" args="-d $(find infi_sim_v1)/rviz/rviz_nav.rviz"/>
+
+      <node pkg="hector_trajectory_server" type="hector_trajectory_server" name="hector_trajectory_server" output="screen">
+    <param name="target_frame_name" type="string" value="/map" />
+    <param name="source_frame_name" type="string" value="/base_link" />
+    <param name="trajectory_update_rate" type="double" value="4" />
+    <param name="trajectory_publish_rate" type="double" value="0.25" />
+   </node>
+  </group>
+
+    <group if="$(arg hector)">
+        <include file="$(find infi_navigation)/launch/slam_hector.launch" />
+    </group>
+
+    <group if="$(arg gmapping)">
+          <include file="$(find infi_navigation)/launch/slam_gmapping.launch" />
+    </group>
+
+    <group if="$(arg amcl)">
+        <include file="$(find infi_navigation)/launch/amcl.launch" >
+            <arg name="x_pos" value="$(arg x_pos)"/>
+            <arg name="y_pos" value="$(arg y_pos)"/>
+            <arg name="Y_rot" value="$(arg Y_rot)"/>
+        </include>
+        <node name="map_server" pkg="map_server" type="map_server" args="$(find infi_navigation)/maps/room.yaml"/>
+    </group>
+
+</launch>

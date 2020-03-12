@@ -1,0 +1,267 @@
+<?xml version="1.0"?>
+<robot name="OPTIMUS_robot_001" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:property name="M_PI" value="3.1415926535897931"/>
+    <xacro:property name="deg_to_rad" value="0.01745329251994329577"/>
+    <xacro:property name="camera_link" value="0.05" /> <!-- Size of square 'camera' box -->
+    <!--xacro:include filename="sensors/xtion_pro_live.urdf.xacro"/-->
+    <!--xacro:xtion_pro_live name="rgbd_camera" parent="end">
+        <origin xyz="0 0 0.1" rpy="0 0 0"/>
+        <origin xyz="0 0 0.1" rpy="${-90.0 * deg_to_rad} 0 ${-90.0 * deg_to_rad}"/>
+    </xacro:xtion_pro_live-->
+
+    <xacro:property name="INTEL_D435_MOUNT_LINK" value="camera_mount_dummy_link"/>
+    <xacro:property name="INTEL_D435_MOUNT_X" value="0.1"/>
+    <xacro:property name="INTEL_D435_MOUNT_Y" value="-0.045"/>
+    <xacro:property name="INTEL_D435_MOUNT_Z" value="0.1"/>
+    <xacro:property name="INTEL_D435_MOUNT_R" value="${M_PI*0.0}"/>
+    <xacro:property name="INTEL_D435_MOUNT_P" value="${M_PI*0.0}"/>
+    <xacro:property name="INTEL_D435_MOUNT_Y" value="${M_PI*0.0}"/>
+    <xacro:include filename="sensors/intel_d435.xacro"/>
+    <!--xacro:include filename="sensors/intel_cam.xacro" name="camera_link" ros_topic="/d435"/-->
+
+    <link name="base_footprint"/>
+    <joint name="base_footprint_joint" type="fixed">
+        <parent link="base_footprint"/>
+        <child link="base_link"/>
+        <origin xyz="0.00 0.00 0" rpy="0.0 0.0 0.0"/>
+    </joint>
+
+        <link name="camera_mount_dummy_link"/>
+    <joint name="camera_mount_dummy_link_joint" type="fixed">
+        <parent link="elevator"/>
+        <child link="camera_mount_dummy_link"/>
+        <origin xyz="0 0 0" rpy="${M_PI*0.0} ${M_PI*0.0} ${M_PI*0.0}"/>
+    </joint>
+
+    <!-- Base Link -->
+    <link name="base_link">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/base_link_collision_101.stl" scale="1 1 1"/>
+            </geometry>
+        </collision><!--<contact_coefficients> </contact_coefficients>-->
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/base_link.STL" scale="1 1 1"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <inertial>
+            <origin xyz="0.3 0 0.2" rpy="0 0 0"/>
+            <mass value="80"/>
+            <inertia
+                    ixx="14.480" ixy="0" ixz="0.0"
+                    iyy="14.672" iyz="0.0"
+                    izz="3.480"/>
+            <!--         <inertia
+                             ixx="14.4873" ixy="-0.0006" ixz="-0.0377"
+                             iyy="3.5408" iyz="0.8225"
+                             izz="14.6034"/>-->
+        </inertial>
+    </link>
+
+    <!-- Wheels -->
+    <joint name="j_whFR" type="continuous">
+        <parent link="base_link"/>
+        <child link="whFR"/>
+        <origin xyz="0.4315 -0.185 0.0533" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <link name="whFR">
+        <collision>
+            <origin xyz="0 -0.0375 0" rpy="1.5707963267948966 0 0"/>
+            <geometry>
+                <cylinder radius="0.13" length="0.075"/>
+
+                <!--                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/wheel_front_left.STL" scale="1 1 1"/>-->
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 -1.5707963267948966"/>
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/wheel_front_left.STL" scale="1 1 1"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+
+        <inertial>
+            <origin xyz="0 0.0 0" rpy="0 0 0"/>
+            <mass value="1.5"/>
+            <inertia
+                    ixx="0.007688273" ixy="0.0" ixz="0.0"
+                    iyy="0.0140792" iyz="0.0"
+                    izz="0.007688273"/>
+        </inertial>
+    </link>
+
+    <joint name="j_whFL" type="continuous">
+        <parent link="base_link"/>
+        <child link="whFL"/>
+        <origin xyz="0.4315 0.185 0.0533" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <link name="whFL">
+        <collision>
+            <origin xyz="0 0.0375 0" rpy=" 1.5707963267948966 0 0"/>
+            <geometry>
+                <cylinder radius="0.13" length="0.075"/>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/wheel_front_left.STL" scale="1 1 1"/>
+                <!--                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/wheel_front_left.STL" scale="1 1 1"/>-->
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 1.5707963267948966"/>
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/wheel_front_left.STL" scale="1 1 1"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+
+        <inertial>
+            <origin xyz="0 0.0 0" rpy="0 0 0"/>
+            <mass value="1.5"/>
+            <inertia
+                    ixx="0.007688273" ixy="0.0" ixz="0.0"
+                    iyy="0.0140792" iyz="0.0"
+                    izz="0.007688273"/>
+        </inertial>
+    </link>
+
+    <joint name="j_whRL" type="fixed">
+        <parent link="base_link"/>
+        <child link="whRL"/>
+        <origin xyz="0.095 0.2075 -0.0173" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <link name="whRL">
+        <collision>
+            <origin xyz="0 0 0" rpy="1.5707963267948966 0 0"/> <!-- -1.5707963267948966  -->
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/wheel_back_left.STL" scale="1 1 1"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0" rpy="1.5707963267948966 0 0"/>
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/wheel_back_left.STL" scale="1 1 1"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+
+        <inertial>
+            <origin xyz="0 -0.0215 0" rpy="0 0 0"/>
+            <mass value="0.4"/>
+            <inertia
+                    ixx="0.0004538583" ixy="0.0" ixz="0.0"
+                    iyy="0.00078445" iyz="0.0"
+                    izz="0.0004538583"/>
+        </inertial>
+    </link>
+
+
+    <joint name="j_whRR" type="fixed">
+        <parent link="base_link"/>
+        <child link="whRR"/>
+        <origin xyz="0.095 -0.2075 -0.0173" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <link name="whRR">
+        <collision>
+            <origin xyz="0 0 0" rpy="-1.5707963267948966 0 0"/>
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/wheel_back_left.STL" scale="1 1 1"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0" rpy="-1.5707963267948966 0 0"/>
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/wheel_back_left.STL" scale="1 1 1"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+
+        <inertial>
+            <origin xyz="0 0.0215 0" rpy="0 0 0"/>
+            <mass value="0.4"/>
+            <inertia
+                    ixx="0.0004538583" ixy="0.0" ixz="0.0"
+                    iyy="0.00078445" iyz="0.0"
+                    izz="0.0004538583"/>
+        </inertial>
+    </link>
+
+    <!-- Elevator -->
+    <joint name="j_elev" type="fixed">
+        <parent link="base_link"/>
+        <child link="elevator"/>
+        <origin xyz="0.4065 0 0.595" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="30" velocity="1.0" lower="0" upper="0.7"/>
+
+    </joint>
+    <link name="elevator">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/> <!-- -1.5707963267948966  -->
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/elevator_robotic_arm.STL" scale="1 1 1"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://infi_sim_v1/models/OPTIMUS_robot_001/meshes/elevator_robotic_arm.STL" scale="1 1 1"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="1.5"/>
+            <inertia
+                    ixx="0.0302" ixy="0.0" ixz="0.0"
+                    iyy="0.0027" iyz="0"
+                    izz="0.0302"/>
+        </inertial>
+    </link>
+
+
+    <joint name="j_ray_sensor_front" type="fixed">
+        <parent link="base_link"/>
+        <child link="ray_sensor_front"/>
+        <origin xyz="0.5 0 0.5" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+    <link name="ray_sensor_front">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="0.0001"/>
+            <inertia
+                    ixx="1e-10" ixy="0.0" ixz="0.0"
+                    iyy="1e-10" iyz="0"
+                    izz="1e-10"/>
+        </inertial>
+    </link>
+
+
+    <joint name="j_imu_link" type="fixed">
+        <parent link="base_link"/>
+        <child link="imu_link"/>
+        <origin xyz="0.3 0 0" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+    <link name="imu_link">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="0.0001"/>
+            <inertia
+                    ixx="1e-10" ixy="0.0" ixz="0.0"
+                    iyy="1e-10" iyz="0"
+                    izz="1e-10"/>
+        </inertial>
+    </link>
+
+
+</robot>

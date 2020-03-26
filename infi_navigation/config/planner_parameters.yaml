@@ -1,11 +1,11 @@
 controller_frequency: 7.0
-recovery_behaviour_enabled: false # true
+recovery_behaviour_enabled: true # true
 clearing_rotation_allowed: false
 
 # There is 3 GLobal Planners carrot planner, navfn and global planner.
 # Navfn uses Dijkstra , Carrot is Stupid , global_planner uses A*,DIjkstr etc..
 NavfnROS: # Global
-  allow_unknown: true 
+  allow_unknown: true
   default_tolerance: 0.1
   #cost_factor 0.55
   #neutral_cost 66
@@ -14,18 +14,18 @@ NavfnROS: # Global
 # There is 3 Local Planners dwa, eband , teb
 DWAPlannerROS:  # Dynamic Window Approach
   # Robot configuration parameters
-  acc_lim_x: 0.3
+  acc_lim_x: 0.1
   acc_lim_y: 0
-  acc_lim_th: 0.2
+  acc_lim_th: 0.07
 
   max_vel_x: 0.2 #  Maximum Velocity (m/s)
-  min_vel_x: -0.2
+  min_vel_x: -0.1
   max_vel_y: 0  # y velocity should be set to zero for non-holonomic robor ( diff )
   min_vel_y: 0
   max_vel_trans: 0.2 # Translational velocity (m/s) is the velocity when robot is moving in a straight line.
   min_vel_trans: 0.05
-  max_vel_theta: 0.4 # Rotational (angular) velocity (rad/s); its maximum value is the angular velocity of the robot when it is rotating in place
-  min_vel_theta: 0.1 # DWA Local Planner takes the absolute value of robot’s minimum rotational velocity
+  max_vel_theta: 0.2 # Rotational (angular) velocity (rad/s); its maximum value is the angular velocity of the robot when it is rotating in place
+  min_vel_theta: 0.01 # DWA Local Planner takes the absolute value of robot’s minimum rotational velocity
   #min_rotational_vel 0.70
 
   #vx_sample 20 # how many translational velocity samples to take in x
@@ -38,8 +38,8 @@ DWAPlannerROS:  # Dynamic Window Approach
 
 
   # Goal Tolerance Parameters
-  yaw_goal_tolerance: 0.2 # 0.5 tolerance in radians for the controller in yaw/rotation when achieving its goal
-  xy_goal_tolerance: 0.15 # 0.1 tolerance in meters for the controller in the x & y distance when achieving a goal
+  yaw_goal_tolerance: 0.1 # 0.5 tolerance in radians for the controller in yaw/rotation when achieving its goal
+  xy_goal_tolerance: 0.5 # 0.1 tolerance in meters for the controller in the x & y distance when achieving a goal
   latch_xy_goal_tolerance: false # If goal tolerance is latched, if the robot ever reaches the goal xy location it will simply rotate in place
 
   publish_traj_pc: true              # default: false

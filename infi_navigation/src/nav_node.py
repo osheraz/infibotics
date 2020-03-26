@@ -12,6 +12,7 @@ from gazebo_msgs.srv import GetModelState, GetModelStateRequest, GetLinkState, G
 from gazebo_msgs.msg import ModelState
 from gazebo_msgs.srv import SpawnModel, SpawnModelRequest, SpawnModelResponse
 from tf.transformations import quaternion_from_euler, euler_from_quaternion
+from nav_msgs.msg import Odometry, Path
 
 import actionlib
 from actionlib_msgs.msg import *
@@ -35,6 +36,7 @@ class Nav:
         self.link_name_lst = ['OPTIMUS::base_footprint','OPTIMUS::whFL', 'OPTIMUS::whFR','OPTIMUS::whRL','OPTIMUS::whRR']
         self.joint_name_lst = ['j_whFR', 'j_whFL', 'j_whRR','j_whRL']
         self.save_req_sub = rospy.Subscriber('/SaveDatPos',String,self.save_req_callback)
+        self.nav_path_sub = rospy.Subscriber("/move_base/NavfnROS/plan", Path, self.path_callback)
 
         #Gazebo stuff
         self.pause_proxy = rospy.ServiceProxy('/gazebo/pause_physics',Empty)
@@ -51,15 +53,27 @@ class Nav:
         self.get_link_state_req.link_name = ''  # TODO: change
         self.get_link_state_req.reference_frame = 'world'
 
-        self.filename = 'pos_file.csv'
-        # make CSV file name from these params
-        with open(self.filename, 'w') as f:
-            f.write('name,x , y, z, roll, pitch, theta\n')
-            self.flag = False
+        # self.filename = 'pos_file.csv'
+        # # make CSV file name from these params
+        # with open(self.filename, 'w') as f:
+        #     f.write('name,x , y, z, roll, pitch, theta\n')
+        #     self.flag = False
 
         rospy.loginfo("[nav_node]: started")
 
         # self.navigate(self.load_nav_tasks(self.filename))
+    def path_callback(self,data):
+        sum=0
+        print("--------------------------------------------")
+        for i,pose in enumerate(data.poses):
+            print("{} ; {}".format(pose.pose.position.x, pose.pose.position.y))
+            if i != len(data.poses)-1:
+                sum += sqrt(pow((data.poses[i + 1].pose.position.x - data.poses[i].pose.position.x), 2)
+                            + pow((data.poses[i + 1].pose.position.y - data.poses[i].pose.position.y), 2))
+        print("--------------------------------------------")
+        print("sum: {}".format(sum))
+
+
 
     def navigate(self, locations):
         # Set up the goal locations. Poses are defined in the map frame.

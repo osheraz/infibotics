@@ -3,32 +3,6 @@
 <sdf version="1.6">
     <model name="HASS_ST_20">
 
-        <plugin name="spawn_plugin" filename="libpartSpawnPlugin.so">
-            <part_name>spawned_part_001_brick</part_name>
-            <!--Some dummy parameters:-->
-            <fdm_addr>127.0.0.1</fdm_addr>
-            <imuName>goshawk200/imu_link::imu_sensor</imuName>
-            <connectionTimeoutMaxCount>5</connectionTimeoutMaxCount>
-
-            <motor>
-                <maxRpm>3200</maxRpm>
-                <motor_constant>0.001</motor_constant>
-                <rotor_drag_coefficient>1e-05</rotor_drag_coefficient>
-                <moment_constant>0.1</moment_constant>
-                <rolling_moment_coefficient>0.000001</rolling_moment_coefficient>
-                <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
-            </motor>
-
-            <rotor id="0">
-                <jointName>goshawk200::rotor_0_joint</jointName>
-                <linkName>goshawk200::rotor_0</linkName>
-                <turningDirection>ccw</turningDirection>
-            </rotor>
-        </plugin>
-        <static>0</static>
-
-        <pose>0 0 0.0 0 0 0</pose>
-
         <link name='base_link'>
             <inertial>
                 <pose>0 0 0 0 0 0</pose>

@@ -28,31 +28,34 @@
 
     <!-- Kobi shit need to be here  -->
     <group if="$(arg arm)">
-        <include file="$(find manipulator_h_manager)/launch/manipulator_h_manager_gazebo.launch"/>
-        <include file="$(find manipulator_h_gazebo)/launch/position_controller.launch"/>
-        <node name="manipulator_h_gui" pkg="manipulator_h_gui" type="manipulator_h_gui" respawn="false"/>
-
         <group if="$(arg gazebo)">
+
+            <include file="$(find manipulator_h_manager)/launch/manipulator_h_manager_gazebo.launch"/>
+            <include file="$(find manipulator_h_gazebo)/launch/position_controller.launch"/>
+
+            <node name="manipulator_h_gui" pkg="manipulator_h_gui" type="manipulator_h_gui" respawn="false"/>
                 <env name="GAZEBO_MODEL_PATH" value="$(find infi_sim_v1)/models:$(optenv GAZEBO_MODEL_PATH)"/>
                <param name="robot_description" command="$(find xacro)/xacro '$(find infi_sim_v1)/models/OPTIMUS_robot_001/model.xacro' --inorder "/>
-                <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" output="screen"
+
+            <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" output="screen"
                   args="-urdf -param robot_description -model $(arg main_robot_name) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -Y $(arg Y_rot)"/>
 
-                <include file="$(find infi_sim_v1)/launch/world.launch">
+            <include file="$(find infi_sim_v1)/launch/world.launch">
                     <arg name="paused" value="false"/>
                     <arg name="headless" value="$(arg headless)"/>
                     <arg name="gui" value="$(arg gui)"/>
                     <arg name="world_name" value="$(arg world_name)"/>
                     <arg name="verbose" value="true"/>
                     <!--<arg name="gzclient_args" value="-g libGUICameraPlugin.so"/>-->
-                </include>
+            </include>
+            <node pkg="rh_p12_rn_gazebo" type="gazebo_rh_pub" name="gazebo_grip_pub"/>
 
-                <node pkg="rh_p12_rn_gazebo" type="gazebo_rh_pub" name="gazebo_grip_pub"/>
             </group>
     </group>
 
     <group unless="$(arg arm)">
             <group if="$(arg gazebo)">
+
                 <env name="GAZEBO_MODEL_PATH" value="$(find infi_sim_v1)/models:$(optenv GAZEBO_MODEL_PATH)"/>
                 <param name="robot_description" command="$(find xacro)/xacro '$(find infi_sim_v1)/models/OPTIMUS_robot_001/model-no-arm.xacro' --inorder"/>
                 <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" output="screen"
@@ -71,11 +74,10 @@
 
         <!--load hardware stuff-->
     <group unless="$(arg gazebo)">
+         <group unless="$(arg arm)">
 
         <param name="robot_description" command="$(find xacro)/xacro '$(find infi_sim_v1)/models/OPTIMUS_robot_001/model-no-arm_real.xacro' --inorder"/>
         <include file="$(find roboclaw_node)/launch/roboclaw.launch" />
-
-        <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="false"/>
 
         <group if="$(arg lidar)">
             <node name="sick_tim551_2050001" pkg="sick_tim" type="sick_tim551_2050001" respawn="false" output="screen">
@@ -83,9 +85,11 @@
                  <param name="min_ang" type="double" value="-1.65619449019" />
                  <param name="max_ang" type="double" value="1.65619449019" />
             </node>
-     </group>
+        </group>
 
+      </group>
     </group>
+
     <!-- convert joint states to TF transforms for rviz, etc -->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="false"/>
@@ -103,6 +107,7 @@
         <node pkg="rviz" type="rviz" name="rviz" required="true"
               args="-d $(find infi_sim_v1)/rviz/main.rviz"/>
     </group>
+
 
     <group if="$(arg amcl)">
         <include file="$(find infi_navigation)/launch/navigation.launch" >
@@ -147,7 +152,5 @@
         </group>
     </group>
 
-      <!-- cloud transformer - transfrom PCL from camera_link to base_footprint -->
-  <node name="cloud_transformer" pkg="infi_perception" type="cloud_transformer" respawn="false"/>
 
 </launch>

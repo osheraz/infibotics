@@ -159,7 +159,7 @@ add_executable(feature_extractor src/feature_extractor.cpp)
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 add_dependencies(cloud_transformer ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_gencfg)
-add_dependencies(feature_extractor sensor_stick_gencpp)
+add_dependencies(feature_extractor infi_perception_gencpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(cloud_transformer ${catkin_LIBRARIES})

@@ -16,8 +16,9 @@
     <xacro:property name="INTEL_D435_MOUNT_R" value="${M_PI*0.0}"/>
     <xacro:property name="INTEL_D435_MOUNT_P" value="${M_PI*0.0}"/>
     <xacro:property name="INTEL_D435_MOUNT_Y" value="${M_PI*0.0}"/>
-    <!--xacro:include filename="sensors/intel_d435.xacro"/-->
+    <xacro:include filename="sensors/intel_d435.xacro"/>
     <!--xacro:include filename="sensors/intel_cam.xacro" name="camera_link" ros_topic="/d435"/-->
+
 
     <link name="base_footprint"/>
     <joint name="base_footprint_joint" type="fixed">

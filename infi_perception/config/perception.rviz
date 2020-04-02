@@ -7,7 +7,6 @@ Panels:
         - /Global Options1
         - /Status1
         - /PointCloud23
-        - /PointCloud23/Status1
       Splitter Ratio: 0.334155351
     Tree Height: 747
   - Class: rviz/Selection
@@ -28,7 +27,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: PointCloud2
+    SyncSource: ""
 Toolbars:
   toolButtonStyle: 2
 Visualization Manager:
@@ -62,16 +61,6 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        arm:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        base_arm:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         base_footprint:
           Alpha: 1
           Show Axes: false
@@ -81,11 +70,14 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        bucket:
+        camera_color_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+        camera_color_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         camera_depth_frame:
           Alpha: 1
           Show Axes: false
@@ -94,59 +86,64 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+        camera_left_ir_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_left_ir_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         camera_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        camera_rgb_frame:
+          Value: true
+        camera_mount_dummy_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        camera_rgb_optical_frame:
+        camera_right_ir_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        front_left_wheel_link:
+        camera_right_ir_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        elevator:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        front_right_wheel_link:
+        imu_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        ray_sensor_front:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        whFL:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        laser_link:
+        whFR:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        left_urf_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        rear_left_wheel_link:
+        whRL:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rear_right_wheel_link:
+        whRR:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rear_urf_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        rgb_cam_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        right_urf_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
@@ -158,47 +155,47 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        arm:
-          Value: true
-        base_arm:
-          Value: true
         base_footprint:
           Value: true
         base_link:
           Value: true
-        bucket:
+        camera_color_frame:
+          Value: true
+        camera_color_optical_frame:
           Value: true
         camera_depth_frame:
           Value: true
         camera_depth_optical_frame:
           Value: true
+        camera_left_ir_frame:
+          Value: true
+        camera_left_ir_optical_frame:
+          Value: true
         camera_link:
           Value: true
-        camera_rgb_frame:
+        camera_mount_dummy_link:
           Value: true
-        camera_rgb_optical_frame:
+        camera_right_ir_frame:
           Value: true
-        front_left_wheel_link:
+        camera_right_ir_optical_frame:
           Value: true
-        front_right_wheel_link:
+        elevator:
           Value: true
-        laser_link:
-          Value: true
-        left_urf_link:
+        imu_link:
           Value: true
         map:
           Value: true
         odom:
           Value: true
-        rear_left_wheel_link:
+        ray_sensor_front:
           Value: true
-        rear_right_wheel_link:
+        whFL:
           Value: true
-        rear_urf_link:
+        whFR:
           Value: true
-        rgb_cam_link:
+        whRL:
           Value: true
-        right_urf_link:
+        whRR:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -210,34 +207,32 @@ Visualization Manager:
           odom:
             base_footprint:
               base_link:
-                base_arm:
-                  arm:
-                    bucket:
-                      {}
-                camera_link:
-                  camera_depth_frame:
-                    camera_depth_optical_frame:
-                      {}
-                  camera_rgb_frame:
-                    camera_rgb_optical_frame:
-                      {}
-                front_left_wheel_link:
+                elevator:
+                  camera_mount_dummy_link:
+                    camera_link:
+                      camera_depth_frame:
+                        camera_color_frame:
+                          camera_color_optical_frame:
+                            {}
+                        camera_depth_optical_frame:
+                          {}
+                        camera_left_ir_frame:
+                          camera_left_ir_optical_frame:
+                            {}
+                        camera_right_ir_frame:
+                          camera_right_ir_optical_frame:
+                            {}
+                imu_link:
                   {}
-                front_right_wheel_link:
+                ray_sensor_front:
                   {}
-                laser_link:
+                whFL:
                   {}
-                left_urf_link:
+                whFR:
                   {}
-                rear_left_wheel_link:
+                whRL:
                   {}
-                rear_right_wheel_link:
-                  {}
-                rear_urf_link:
-                  {}
-                rgb_cam_link:
-                  {}
-                right_urf_link:
+                whRR:
                   {}
       Update Interval: 0
       Value: true
@@ -313,7 +308,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: ""
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Max Intensity: 4096
@@ -330,7 +325,7 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:

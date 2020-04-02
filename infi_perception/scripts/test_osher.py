@@ -5,14 +5,14 @@ import numpy as np
 import sklearn
 from sklearn.preprocessing import LabelEncoder
 import pickle
-from komodo_perception.srv import GetNormals
-from komodo_perception.features import compute_color_histograms
-from komodo_perception.features import compute_normal_histograms
+from infi_perception.srv import GetNormals
+from infi_perception.features import compute_color_histograms
+from infi_perception.features import compute_normal_histograms
 from visualization_msgs.msg import Marker
-from komodo_perception.marker_tools import *
-from komodo_perception.msg import DetectedObjectsArray
-from komodo_perception.msg import DetectedObject
-from komodo_perception.pcl_helper import *
+from infi_perception.marker_tools import *
+from infi_perception.msg import DetectedObjectsArray
+from infi_perception.msg import DetectedObject
+from infi_perception.pcl_helper import *
 
 import rospy
 import tf
@@ -237,7 +237,7 @@ if __name__ == '__main__':
     rospy.init_node('clustering', anonymous=True)
 
     # TODO: Create Subscribers
-    pcl_sub = rospy.Subscriber("/komodo_perception/point_cloud", pc2.PointCloud2, pcl_callback, queue_size=1)
+    pcl_sub = rospy.Subscriber("/infi_perception/point_cloud", pc2.PointCloud2, pcl_callback, queue_size=1)
 
     # TODO: Create Publishers
     pcl_objects_pub = rospy.Publisher("/pcl_objects", PointCloud2, queue_size=1)

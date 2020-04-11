@@ -221,11 +221,10 @@ def pcl_callback(pcl_msg):
         ros_cluster = pcl_to_ros(pcl_cluster)
 
         # Extract histogram features
-        # color_hists = compute_color_histograms(ros_cluster, using_hsv=True)
-        # normals = get_normals(ros_cluster)
-        # normal_hists = compute_normal_histograms(normals)
-        # feature = np.concatenate((color_hists, normal_hists))
-
+        color_hists = compute_color_histograms(ros_cluster, using_hsv=True)
+        normals = get_normals(ros_cluster)
+        normal_hists = compute_normal_histograms(normals)
+        feature = np.concatenate((color_hists, normal_hists))
         get_centeroid(pcl_cluster)
 
 

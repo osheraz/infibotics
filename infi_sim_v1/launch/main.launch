@@ -26,7 +26,6 @@
     <arg name="move_base" default="false"/>
   <param name="use_sim_time" value="false"/>
 
-    <!-- Kobi shit need to be here  -->
     <group if="$(arg arm)">
         <group if="$(arg gazebo)">
 

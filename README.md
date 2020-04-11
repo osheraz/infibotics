@@ -2,13 +2,17 @@
 
 ## package includes implementation of various nav stacks & control for OPTIMUS robot
 
+### Navigation package:
+SLAM: hecto&gmapping working good, carto only 2D implementation
+move_base planner
 
+### Perception package:
+basic cluster segmention base on RANSAN
 
-
-
+### Manipulator package:
+Manipulator-H: RRT obstacle avoidance (add, currently in diff repo), reach and grasp server
 
 Clone the repo, build (make) everything
-
 
 **Simulation of basic Infibotics plant**
 

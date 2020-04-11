@@ -15,8 +15,7 @@ Manipulator-H: RRT obstacle avoidance (add, currently in diff repo), reach and g
 
 Clone the repo, build (make) everything
 
-
-**Simulation of basic Infibotics plant
+## Simulation of basic Infibotics plant
 
 ```roslaunch infi_sim_v1 main.launch```
 

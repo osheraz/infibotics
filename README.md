@@ -13,7 +13,6 @@ basic cluster segmention base on RANSAN
 Manipulator-H: RRT obstacle avoidance (add, currently in diff repo), reach and grasp server
 
 
-Clone the repo, build (make) everything
 
 ## Simulation of basic Infibotics plant
 

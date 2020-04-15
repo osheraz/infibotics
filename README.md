@@ -1,6 +1,6 @@
 # infibotics
 
-![Infi](https://ibb.co/DYNTtcX)
+![Infi](https://i.imgur.com/9M3lrjq.png)
 
 ## package includes implementation of various nav stacks & control for OPTIMUS robot
 

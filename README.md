@@ -18,9 +18,7 @@ Manipulator-H: RRT obstacle avoidance (add, currently in diff repo), reach and g
 
 ## Simulation of basic Infibotics plant
 
-``` sudo
-roslaunch infi_sim_v1 main.launch
-```
+``` roslaunch infi_sim_v1 main.launch```
 
 ***params:***
 
@@ -33,6 +31,8 @@ joy       - includes joystick control
 lidar     - include lidar node
 
 move_base - planner utilities     (navigation)
+
+
 
 gmapping  - slam navgiation option (navigation)
 

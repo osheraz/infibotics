@@ -1,18 +1,24 @@
 # infibotics
 
+![Infi](https://i.imgur.com/9M3lrjq.png)
+
 ## package includes implementation of various nav stacks & control for OPTIMUS robot
 
+### Navigation package:
+SLAM: hecto&gmapping working good, carto only 2D implementation
+move_base planner
+
+### Perception package:
+basic cluster segmention (RANSAC)
+
+### Manipulator package:
+Manipulator-H: RRT obstacle avoidance (add, currently in diff repo), reach and grasp server
 
 
 
+## Simulation of basic Infibotics plant
 
-
-Clone the repo, build (make) everything
-
-
-**Simulation of basic Infibotics plant**
-
-```roslaunch infi_sim_v1 main.launch```
+``` roslaunch infi_sim_v1 main.launch```
 
 ***params:***
 
@@ -25,6 +31,8 @@ joy       - includes joystick control
 lidar     - include lidar node
 
 move_base - planner utilities     (navigation)
+
+
 
 gmapping  - slam navgiation option (navigation)
 

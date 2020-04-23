@@ -135,51 +135,49 @@
       </include>
       <pose frame=''>0.052968 0.040809 0 0 -0 0</pose>
     </model>
-    
     <!-- Row 1 -->
     <model name="HAAS_VF2_1_1">
       <include>
         <uri>model://HAAS_VF2</uri>
       </include>
-      <pose>1 4 1 0 0 0</pose>
+      <pose>1 4 0.1 0 0 0</pose>
     </model>
     <model name="HAAS_VF2_1_2">
       <include>
         <uri>model://HAAS_VF2</uri>
       </include>
-      <pose>6 4 1 0 0 0</pose>
+      <pose>6.1 4 0.1 0 0 0</pose>
     </model>
     <model name="HAAS_VF2_1_3">
       <include>
         <uri>model://HAAS_VF2</uri>
       </include>
-      <pose>11 4 1 0 0 0</pose>
+      <pose>10.8 4 0.1 0 0 0</pose>
     </model>
     <model name="HAAS_VF2_1_4">
       <include>
         <uri>model://HAAS_VF2</uri>
       </include>
-      <pose>16 4 1 0 0 0</pose>
+      <pose>16.5 4 1 0 0 0</pose>
     </model>
-    
     <!-- Row 2 -->
     <model name="HAAS_VF2_2_1">
       <include>
         <uri>model://HAAS_VF2</uri>
       </include>
-      <pose>1 9 1 0 0 0</pose>
+      <pose>0.8 9 1 0 0 0</pose>
     </model>
     <model name="HAAS_VF2_2_2">
       <include>
         <uri>model://HAAS_VF2</uri>
       </include>
-      <pose>6 9 1 0 0 0</pose>
+      <pose>6.2 9 1 0 0 0</pose>
     </model>
     <model name="HAAS_VF2_2_3">
       <include>
         <uri>model://HAAS_VF2</uri>
       </include>
-      <pose>11 9 1 0 0 0</pose>
+      <pose>11.1 9 1 0 0 0</pose>
     </model>
     <model name="HAAS_VF2_2_4">
       <include>
@@ -187,31 +185,30 @@
       </include>
       <pose>16 9 1 0 0 0</pose>
     </model>
-    
-	<!-- Row 3 -->
+    <!-- Row 3 -->
     <model name="HAAS_VF2_3_1">
       <include>
         <uri>model://HAAS_VF2</uri>
       </include>
-      <pose>1 14 1 0 0 0</pose>
+      <pose>.89 14 1 0 0 0</pose>
     </model>
     <model name="HAAS_VF2_3_2">
       <include>
         <uri>model://HAAS_VF2</uri>
       </include>
-      <pose>6 14 1 0 0 0</pose>
+      <pose>6.15 14 1 0 0 0</pose>
     </model>
     <model name="HAAS_VF2_3_3">
       <include>
         <uri>model://HAAS_VF2</uri>
       </include>
-      <pose>11 14 1 0 0 0</pose>
+      <pose>11.3 14 1 0 0 0</pose>
     </model>
     <model name="HAAS_VF2_3_4">
       <include>
         <uri>model://HAAS_VF2</uri>
       </include>
-      <pose>16 14 1 0 0 0</pose>
+      <pose>16.21 14 1 0 0 0</pose>
     </model>
     <!--
          

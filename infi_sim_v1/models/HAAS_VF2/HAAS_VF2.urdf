@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<!-- 180 3.1415926535 -->
+<!-- 30 0.523598776 -->
+<!-- 15 0.261799388 -->
+
+
+<robot
+  name="HAAS_VF2">
+  <link
+    name="HAAS_VF2_base">
+    <inertial>
+      <origin
+        xyz="0 1 0"
+        rpy="0 0.261799388 0" />
+      <mass
+        value="14879" />
+      <inertia
+        ixx="2964.3"
+        ixy="1.7344"
+        ixz="-27.292"
+        iyy="4409.9"
+        iyz="-1.747"
+        izz="3079.7" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://infi_sim_v1/models/HAAS_VF2/meshes/CNC_VF2_base.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.52941 0.54902 0.54902 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+			filename="package://infi_sim_v1/models/HAAS_VF2/meshes/CNC_VF2_base.STL" />
+			<!-- <box size="2 3 0.5"/> -->
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="Door_left">
+    <inertial>
+      <origin
+        xyz="-0.285 0.58552 -0.080585"
+        rpy="0 0 0" />
+      <mass
+        value="5.2116" />
+      <inertia
+        ixx="0.80899"
+        ixy="0"
+        ixz="0"
+        iyy="0.20392"
+        iyz="0.12453"
+        izz="0.95521" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+			filename="package://infi_sim_v1/models/HAAS_VF2/meshes/Door_left.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://HAAS_VF2/meshes/Door_left.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="door_left"
+    type="prismatic">
+    <origin
+      xyz="0 0.033372 0.5001"
+      rpy="1.5708 0 0" />
+    <parent
+      link="HAAS_VF2_base" />
+    <child
+      link="Door_left" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Door_right">
+    <inertial>
+      <origin
+        xyz="0.285 0.58552 -0.080585"
+        rpy="0 0 0" />
+      <mass
+        value="5.2116" />
+      <inertia
+        ixx="0.80899"
+        ixy="0"
+        ixz="0"
+        iyy="0.20392"
+        iyz="0.12453"
+        izz="0.95521" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+        filename="package://infi_sim_v1/models/HAAS_VF2/meshes/Door_right.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+        filename="package://infi_sim_v1/models/HAAS_VF2/meshes/Door_right.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="door_right"
+    type="prismatic">
+    <origin
+      xyz="0 0.033372 0.5001"
+      rpy="1.5708 0 0" />
+    <parent
+      link="HAAS_VF2_base" />
+    <child
+      link="Door_right" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>

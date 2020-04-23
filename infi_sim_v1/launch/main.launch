@@ -15,7 +15,7 @@
     <arg name="Y_rot" default="0"/>     <!--arg name="Y_rot" default="1.5707"/-->
     <arg name="headless" default="false"/>
     <arg name="gui" default="true"/>
-    <arg name="world_name" default="$(find infi_sim_v1)/worlds/main.world"/>
+    <arg name="world_name" default="$(find infi_sim_v1)/worlds/main_4.world"/>
     <arg name="tf_prefix" default="$(optenv ROS_NAMESPACE)"/>
     <arg name="debug" default="true"/>
     <arg name="verbose" default="true"/>
@@ -88,7 +88,7 @@
     </group>
     <!-- convert joint states to TF transforms for rviz, etc -->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
-    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="false"/>
+    <!--<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="false"/>-->
 
 
     <group if="$(arg joy)">

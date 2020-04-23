@@ -141,14 +141,12 @@
         <model name="HASS_ST_20_A">
             <include>
                 <uri>model://HASS_ST_20</uri>
-                <part_name>spawned_part_001_brick</part_name>
             </include>
             <pose>1 3 1 0 0 0</pose>
         </model>
         <model name="HASS_ST_20_B">
             <include>
                 <uri>model://HASS_ST_20</uri>
-                <part_name>spawned_part_001_brick_for_CNC_B</part_name>
             </include>
             <pose>1 8 1 0 0 0</pose>
         </model>
@@ -188,7 +186,6 @@
 
         </model>
         -->
-
 
         <gui fullscreen='0'>
             <camera name='user_camera'>

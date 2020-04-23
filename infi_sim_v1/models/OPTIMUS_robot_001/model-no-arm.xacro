@@ -3,11 +3,6 @@
     <xacro:property name="M_PI" value="3.1415926535897931"/>
     <xacro:property name="deg_to_rad" value="0.01745329251994329577"/>
     <xacro:property name="camera_link" value="0.05" /> <!-- Size of square 'camera' box -->
-    <!--xacro:include filename="sensors/xtion_pro_live.urdf.xacro"/-->
-    <!--xacro:xtion_pro_live name="rgbd_camera" parent="end">
-        <origin xyz="0 0 0.1" rpy="0 0 0"/>
-        <origin xyz="0 0 0.1" rpy="${-90.0 * deg_to_rad} 0 ${-90.0 * deg_to_rad}"/>
-    </xacro:xtion_pro_live-->
 
     <xacro:property name="INTEL_D435_MOUNT_LINK" value="camera_mount_dummy_link"/>
     <xacro:property name="INTEL_D435_MOUNT_X" value="0.1"/>
@@ -16,8 +11,8 @@
     <xacro:property name="INTEL_D435_MOUNT_R" value="${M_PI*0.0}"/>
     <xacro:property name="INTEL_D435_MOUNT_P" value="${M_PI*0.0}"/>
     <xacro:property name="INTEL_D435_MOUNT_Y" value="${M_PI*0.0}"/>
-    <!--xacro:include filename="sensors/intel_d435.xacro"/-->
-    <!--xacro:include filename="sensors/intel_cam.xacro" name="camera_link" ros_topic="/d435"/-->
+    <xacro:include filename="sensors/intel_d435.xacro"/>
+
 
     <link name="base_footprint"/>
     <joint name="base_footprint_joint" type="fixed">

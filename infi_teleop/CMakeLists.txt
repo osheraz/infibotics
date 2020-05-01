@@ -1,23 +1,17 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(infi_perception)
+project(infi_teleop)
 
-## Add support for C++11, supported in ROS Kinetic and newer
-# add_definitions(-std=c++11)
+## Compile as C++11, supported in ROS Kinetic and newer
+add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-	dynamic_reconfigure
-	message_generation
-	pcl_conversions
-	pcl_ros
-	roscpp
-	rospy
-	genmsg
-	roslint
-	std_msgs
-	sensor_msgs
+  joy
+  roscpp
+  rospy
+  std_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -27,7 +21,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
-catkin_python_setup()
+# catkin_python_setup()
 
 ################################################
 ## Declare ROS messages, services and actions ##
@@ -39,10 +33,10 @@ catkin_python_setup()
 ##   your messages/services/actions (e.g. std_msgs, actionlib_msgs, ...).
 ## * In the file package.xml:
 ##   * add a build_depend tag for "message_generation"
-##   * add a build_depend and a run_depend tag for each package in MSG_DEP_SET
+##   * add a build_depend and a exec_depend tag for each package in MSG_DEP_SET
 ##   * If MSG_DEP_SET isn't empty the following dependency has been pulled in
 ##     but can be declared for certainty nonetheless:
-##     * add a run_depend tag for "message_runtime"
+##     * add a exec_depend tag for "message_runtime"
 ## * In this file (CMakeLists.txt):
 ##   * add "message_generation" and every package in MSG_DEP_SET to
 ##     find_package(catkin REQUIRED COMPONENTS ...)
@@ -59,19 +53,13 @@ catkin_python_setup()
 #   Message1.msg
 #   Message2.msg
 # )
-add_message_files(
-	FILES
-	DetectedObject.msg
-	DetectedObjectsArray.msg
-)
 
 ## Generate services in the 'srv' folder
-add_service_files(
-  FILES
-  GetNormals.srv
-  GetFloatArrayFeature.srv
-)
-
+# add_service_files(
+#   FILES
+#   Service1.srv
+#   Service2.srv
+# )
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -81,11 +69,10 @@ add_service_files(
 # )
 
 ## Generate added messages and services with any dependencies listed here
-generate_messages(
-	DEPENDENCIES
-    std_msgs
-	sensor_msgs
-)
+# generate_messages(
+#   DEPENDENCIES
+#   std_msgs
+# )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -94,7 +81,7 @@ generate_messages(
 ## To declare and build dynamic reconfigure parameters within this
 ## package, follow these steps:
 ## * In the file package.xml:
-##   * add a build_depend and a run_depend tag for "dynamic_reconfigure"
+##   * add a build_depend and a exec_depend tag for "dynamic_reconfigure"
 ## * In this file (CMakeLists.txt):
 ##   * add "dynamic_reconfigure" to
 ##     find_package(catkin REQUIRED COMPONENTS ...)
@@ -102,24 +89,24 @@ generate_messages(
 ##     and list every .cfg file to be processed
 
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
- generate_dynamic_reconfigure_options(
-   config/Pcl.cfg
+# generate_dynamic_reconfigure_options(
+#   cfg/DynReconf1.cfg
 #   cfg/DynReconf2.cfg
- )
+# )
 
 ###################################
 ## catkin specific configuration ##
 ###################################
 ## The catkin_package macro generates cmake config files for your package
 ## Declare things to be passed to dependent projects
-## INCLUDE_DIRS: uncomment this if you package contains header files
+## INCLUDE_DIRS: uncomment this if your package contains header files
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES sensor_stick
-   CATKIN_DEPENDS message_runtime
+  INCLUDE_DIRS include
+#  LIBRARIES infi_teleop
+  CATKIN_DEPENDS roscpp rospy std_msgs joy
 #  DEPENDS system_lib
 )
 
@@ -129,14 +116,14 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(include)
 include_directories(
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/sensor_stick.cpp
+#   src/${PROJECT_NAME}/infi_teleop.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -147,8 +134,11 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(cloud_transformer src/cloud_transformer.cpp)
-add_executable(feature_extractor src/feature_extractor.cpp)
+add_executable(${PROJECT_NAME}_node
+	src/infi_teleop_node.cpp
+	src/infi_teleop.cpp
+	include/infi_teleop/infi_teleop.h
+	include/infi_teleop/joy_profile.h)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -158,12 +148,17 @@ add_executable(feature_extractor src/feature_extractor.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
+<<<<<<< HEAD:infi_teleop/CMakeLists.txt
+add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+=======
 add_dependencies(cloud_transformer ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_gencfg)
-add_dependencies(feature_extractor sensor_stick_gencpp)
+add_dependencies(feature_extractor infi_perception_gencpp)
+>>>>>>> master:infi_perception/CMakeLists.txt
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(cloud_transformer ${catkin_LIBRARIES})
-target_link_libraries(feature_extractor ${catkin_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_node
+	${catkin_LIBRARIES}
+)
 
 #############
 ## Install ##
@@ -179,11 +174,18 @@ target_link_libraries(feature_extractor ${catkin_LIBRARIES})
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
 
-## Mark executables and/or libraries for installation
-# install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_node
+## Mark executables for installation
+## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
+# install(TARGETS ${PROJECT_NAME}_node
+#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
+
+## Mark libraries for installation
+## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_libraries.html
+# install(TARGETS ${PROJECT_NAME}
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+#   RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
 # )
 
 ## Mark cpp header files for installation
@@ -205,12 +207,10 @@ target_link_libraries(feature_extractor ${catkin_LIBRARIES})
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_sensor_stick.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_infi_teleop.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-roslint_cpp(src/cloud_transformer.cpp)
-#roslint_cpp(srcipts/template.py)

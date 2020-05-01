@@ -14,11 +14,11 @@
      limitations under the License.
 -->
 <launch>
-  <!-- Run Cartographer Node -->
-  <param name="/use_sim_time" value="true" />
   <node name="cartographer_node" pkg="cartographer_ros" type="cartographer_node" args="
-          -configuration_directory $(find infi_navigation)/config
-          -configuration_basename nav_parameters_carto.lua" output="screen" />
+          -configuration_directory $(find cartographer_ros)/configuration_files
+          -configuration_basename infi_robot.lua" output="screen">
+    <remap from="scan" to="/spin_laser/scan" />
+    <remap from="imu" to="/imu/data" />
+  </node>
   <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros" type="cartographer_occupancy_grid_node" args="-resolution 0.05" />
-  <!-- Run RViz Node -->
 </launch>

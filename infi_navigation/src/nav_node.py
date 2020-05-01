@@ -53,7 +53,7 @@ class Nav:
         self.get_link_state_req.link_name = ''  # TODO: change
         self.get_link_state_req.reference_frame = 'world'
 
-        # self.filename = 'pos_file.csv'
+        self.filename = 'pos_file.csv'
         # # make CSV file name from these params
         # with open(self.filename, 'w') as f:
         #     f.write('name,x , y, z, roll, pitch, theta\n')
@@ -61,7 +61,7 @@ class Nav:
 
         rospy.loginfo("[nav_node]: started")
 
-        # self.navigate(self.load_nav_tasks(self.filename))
+        self.navigate(self.load_nav_tasks(self.filename))
     def path_callback(self,data):
         sum=0
         print("--------------------------------------------")
@@ -223,7 +223,7 @@ class Nav:
 
     def load_nav_tasks(self,filename):
         locations = dict()
-        with open(self.filename, 'r') as fd:
+        with open(filename, 'r') as fd:
             content_list = [l.strip() for l in fd]
             for i, x in enumerate(content_list):
                 q = quaternion_from_euler(x[4], x[5], x[6])
